@@ -9,10 +9,8 @@ class Note {
         contents: json["contents"],
       );
 
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "contents": contents,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "contents": contents,
+      };
 }

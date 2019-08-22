@@ -10,12 +10,6 @@ class DBProvider {
 
   Database _database;
 
-  get database async {
-    if (_database != null) {
-      return _database;
-    }
-  }
-
   initDB() async {
     Directory documentsDir = await getApplicationDocumentsDirectory();
     String path = join(documentsDir.path, 'app.db');
@@ -23,7 +17,9 @@ class DBProvider {
     return openDatabase(
       path,
       version: 1,
-      onOpen: (db) async {},
+      onOpen: (db) async {
+        // code when open
+      },
       onCreate: (Database db, int version) async {
         await db.execute('''
       CREATE TABLE note(
@@ -33,5 +29,14 @@ class DBProvider {
       ''');
       },
     );
+  }
+
+  Future<Database> get database async {
+    if (_database != null) {
+      return _database;
+    }
+
+    _database = await initDB();
+    return _database;
   }
 }
